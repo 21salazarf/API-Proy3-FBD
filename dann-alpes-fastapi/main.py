@@ -20,7 +20,7 @@ MONGO_URI = os.environ.get("MONGO_URI")
 DB_NAME   = "ISIS2304I29202610"
 COL_NAME  = "resenas"
 
-client = MongoClient(MONGO_URI, tls = True, tlsCAFile = certifi.where())
+client = MongoClient(MONGO_URI)
 db     = client[DB_NAME]
 col    = db[COL_NAME]
 
