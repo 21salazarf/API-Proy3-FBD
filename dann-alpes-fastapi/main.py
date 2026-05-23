@@ -5,7 +5,7 @@ from bson import ObjectId
 from datetime import datetime
 from typing import Optional
 import os
-import ssl
+import certifi
 
 app = FastAPI(title="Dann-Alpes API")
 
@@ -20,7 +20,7 @@ MONGO_URI = os.environ.get("MONGO_URI")
 DB_NAME   = "ISIS2304I29202610"
 COL_NAME  = "resenas"
 
-client = MongoClient(MONGO_URI, tls = True, tlsAllowInvalidCertificates = True)
+client = MongoClient(MONGO_URI, tls = True, tlsCAFile = certifi.where())
 db     = client[DB_NAME]
 col    = db[COL_NAME]
 
