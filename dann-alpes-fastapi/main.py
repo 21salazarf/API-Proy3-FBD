@@ -5,7 +5,6 @@ from bson import ObjectId
 from datetime import datetime
 from typing import Optional
 import os
-import certifi
 
 app = FastAPI(title="Dann-Alpes API")
 
@@ -20,9 +19,15 @@ MONGO_URI = os.environ.get("MONGO_URI")
 DB_NAME   = "ISIS2304I29202610"
 COL_NAME  = "resenas"
 
-client = MongoClient(MONGO_URI)
-db     = client[DB_NAME]
-col    = db[COL_NAME]
+client = MongoClient(
+    MONGO_URI,
+    tls=True,
+    tlsAllowInvalidCertificates=True,
+    tlsAllowInvalidHostnames=True,
+    serverSelectionTimeoutMS=30000
+)
+db  = client[DB_NAME]
+col = db[COL_NAME]
 
 def parse_doc(doc):
     """Convierte ObjectId a string para poder serializar a JSON."""
